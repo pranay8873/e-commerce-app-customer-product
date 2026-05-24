@@ -5,6 +5,7 @@ import com.java.ecommerce.model.Customer;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class CustomerRepository {
@@ -14,6 +15,7 @@ public class CustomerRepository {
 
     public CustomerRepository() throws IOException {
     }
+
     public void save(Customer customer){
         customers.add(customer);
     }
@@ -23,10 +25,41 @@ public class CustomerRepository {
         return customercsv.getcustomersfromcsv();
     }
 
+
     public Optional<Customer> getCustomerbyid(int id){
         return customers.stream().filter(c -> c.getId()==id).findFirst();
 
     }
+
+
+    public Optional<Customer> updateCustomer(Customer updatedcustomer){
+        Optional<Customer> existing=getCustomerbyid(updatedcustomer.getId());
+        existing.ifPresent(customer -> {
+            customer.setName(updatedcustomer.getName());
+            customer.setAge(updatedcustomer.getAge());
+            customer.setPhoneno(updatedcustomer.getPhoneno());
+            customer.setPassword(updatedcustomer.getPassword());
+            customer.setEmail(updatedcustomer.getEmail());
+            customer.setGender(updatedcustomer.getGender());
+            customer.setId(updatedcustomer.getId());
+        });
+        return existing;
+    }
+
+
+    public boolean deletebyid(int id){
+        return customers.removeIf(customer -> customer.getId()==id);
+    }
+
+
+    public Optional<Customer> getCustomerByEmail(String email){
+        return customers.stream().filter(c-> Objects.equals(c.getEmail(), email)).findFirst();
+    }
+
+
+    public boolean exists(String email){
+        return customers.stream().allMatch(c->(c.getEmail()).equalsIgnoreCase(email));    }
+
 
 
 

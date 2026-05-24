@@ -1,5 +1,4 @@
 package com.java.ecommerce.model;
-
 public class Customer {
     private String name;
     private String gender;

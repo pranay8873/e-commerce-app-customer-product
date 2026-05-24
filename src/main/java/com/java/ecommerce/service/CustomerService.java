@@ -2,6 +2,7 @@ package com.java.ecommerce.service;
 
 import com.java.ecommerce.model.Customer;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface CustomerService {
@@ -10,8 +11,8 @@ public interface CustomerService {
       void register(Customer customer);
       //READ
       Customer getcustomerbyid(int id);
-      Customer getbyemail(Customer customer);
-      List<Customer> getallcustomers();
+      Customer getbyemail(String email);
+      List<Customer> getallcustomers() throws IOException;
       void save(Customer customer);
       //UPDATE
       Customer updatecustomer(Customer customer);
