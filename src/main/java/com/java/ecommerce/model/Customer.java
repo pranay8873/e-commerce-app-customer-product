@@ -63,4 +63,9 @@ public class Customer {
     public void setPhoneno(long phoneno) {
         this.phoneno = phoneno;
     }
+
+    @Override
+    public String toString() {
+        return STR."Customer{name='\{name}', gender='\{gender}', id=\{id}, age=\{age}, email='\{email}', password='\{password}', phoneno=\{phoneno}}";
+    }
 }

@@ -1,10 +1,12 @@
 package com.java.ecommerce.main;
 
 import com.java.ecommerce.Controler.CustomerControler;
+import com.java.ecommerce.model.Customer;
 import com.java.ecommerce.repository.CustomerRepository;
 import com.java.ecommerce.service.CustomerServieceImp;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class CustomerMainMet {
@@ -27,19 +29,29 @@ public class CustomerMainMet {
                 case 1:
                     System.out.println("Enter id : ");
                     int id = sc.nextInt();
-                    cusctlr.getCustomerByID(id);
+                    Customer cu=cusctlr.getCustomerByID(id);
+                    System.out.println(STR."customer with id :\{id}is : "+cu);
+                    break;
                 case 2:
-                    cusctlr.getAllCustomers();
+                    List<Customer> customerList=cusctlr.getAllCustomers();
+                    System.out.println(customerList);
+                    break;
                 case 3:
+                    sc.nextLine();
                     System.out.println("Enter Email : ");
                     String email = sc.nextLine();
-                    cusctlr.getCustomerByEmail(email);
+                    Customer customer=cusctlr.getCustomerByEmail(email);
+                    System.out.println(STR."customer with email \{email} is : \{customer}");
+                    break;
                 case 4:
                     System.out.println("update later");
+                    break;
                 case 5:
                     System.out.println("Enter customer id : ");
                     int id2 = sc.nextInt();
                     cusctlr.deleteCustomer(id2);
+                    System.out.println("customer deleted succesfully");
+                    break;
                 default:
                     System.out.println("invalid input!!");
 

@@ -19,7 +19,7 @@ public class CustomerServieceImp implements CustomerService{
     @Override
     public void register(Customer customer) throws CustomerExistsExc {
         if(Customerrepository.exists(customer.getEmail())){
-            System.out.println("Customer already exists !!!");
+            throw new CustomerExistsExc("Customer already exists !!!");
         }else {
             Customerrepository.save(customer);
         }
@@ -27,12 +27,12 @@ public class CustomerServieceImp implements CustomerService{
     }
 
     @Override
-    public Customer getcustomerbyid(int id) throws CustomerExistsExc{
-        return Customerrepository.getCustomerbyid(id).orElseThrow(()->new CustomerExistsExc(STR."Customer with id \{id} is not present"));
+    public Customer getcustomerbyid(int id) throws CustomerNotFoundExc{
+        return Customerrepository.getCustomerbyid(id).orElseThrow(()->new CustomerNotFoundExc(STR."Customer with id \{id} is not present"));
     }
 
     @Override
-    public Customer getbyemail(String email) {
+    public Customer getbyemail(String email) throws CustomerNotFoundExc {
         return Customerrepository.getCustomerByEmail(email).orElseThrow(()->new CustomerNotFoundExc(STR."customer with email : \{email}not found"));
     }
 

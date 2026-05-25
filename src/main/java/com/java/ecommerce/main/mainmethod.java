@@ -1,9 +1,8 @@
 package com.java.ecommerce.main;
 
 public class mainmethod {
-    static void main() throws Exception {
-        CustomerMainMet main=new CustomerMainMet();
-
+    public static void main(String[] args) throws Exception {
+        CustomerMainMet cm=new CustomerMainMet();
 
     }
 }

@@ -58,7 +58,7 @@ public class CustomerRepository {
 
 
     public boolean exists(String email){
-        return customers.stream().allMatch(c->(c.getEmail()).equalsIgnoreCase(email));    }
+        return customers.stream().anyMatch(c->(c.getEmail()).equalsIgnoreCase(email));    }
 
 
 
