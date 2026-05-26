@@ -4,6 +4,7 @@ import com.java.ecommerce.Exceptions.CustomerExistsExc;
 import com.java.ecommerce.model.Customer;
 import com.java.ecommerce.repository.CustomerRepository;
 import com.java.ecommerce.service.CustomerServieceImp;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,6 +50,20 @@ public class CustomerTest {
         Customer addedcus=cussev.getcustomerbyid(1);
         assertNotNull(addedcus,"customer should not be null");
         assertEquals("pranay",addedcus.getName());
+     }
+     @Test
+     @DisplayName("Should return all customers in the list")
+     void shouldReturnAllCustomers() throws IOException {
+         List<Customer> allCustomers = cussev.getallcustomers();
+         assertNotNull(allCustomers, "customer list should not be null");
+         assertEquals(2, allCustomers.size(), "should return 2 customers from initial setup");
+         assertTrue(allCustomers.stream().anyMatch(c -> c.getName().equals("pranay")), "list should contain pranay");
+         assertTrue(allCustomers.stream().anyMatch(c -> c.getName().equals("vaishnavi")), "list should contain vaishnavi");
+     }
+     @AfterEach
+    public void reset(){
+        cussev=null;
+        customerList=null;
      }
 
 
