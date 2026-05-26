@@ -11,7 +11,7 @@ import java.util.List;
 public class CustomerServieceImp implements CustomerService{
     public final CustomerRepository Customerrepository;
 
-    public CustomerServieceImp(CustomerRepository customerrepo) throws IOException {
+    public CustomerServieceImp(List<Customer> customerrepo) throws IOException {
         this.Customerrepository=customerrepo;
     }
 
@@ -21,19 +21,19 @@ public class CustomerServieceImp implements CustomerService{
         if(Customerrepository.exists(customer.getEmail())){
             throw new CustomerExistsExc("Customer already exists !!!");
         }else {
-            Customerrepository.save(customer);
+            Customerrepository.addcustomer(customer);
         }
 
     }
 
     @Override
     public Customer getcustomerbyid(int id) throws CustomerNotFoundExc{
-        return Customerrepository.getCustomerbyid(id).orElseThrow(()->new CustomerNotFoundExc(STR."Customer with id \{id} is not present"));
+        return Customerrepository.getCustomerbyid(id).orElseThrow(()->new CustomerNotFoundExc("Customer with id " + id + " is not present"));
     }
 
     @Override
     public Customer getbyemail(String email) throws CustomerNotFoundExc {
-        return Customerrepository.getCustomerByEmail(email).orElseThrow(()->new CustomerNotFoundExc(STR."customer with email : \{email}not found"));
+        return Customerrepository.getCustomerByEmail(email).orElseThrow(()->new CustomerNotFoundExc("customer with email : " + email + " not found"));
     }
 
     @Override
@@ -43,14 +43,14 @@ public class CustomerServieceImp implements CustomerService{
 
     @Override
     public void save(Customer customer) {
-        Customerrepository.save(customer);
+        Customerrepository.addcustomer(customer);
     }
 
     @Override
     public Customer updatecustomer(Customer customer) {
         Customer existing=Customerrepository.getCustomerbyid(customer.getId()).orElseThrow(()->new CustomerNotFoundExc("customer not found"));
         if(!existing.getEmail().equalsIgnoreCase(customer.getEmail())&&Customerrepository.exists(customer.getEmail())){
-            throw new CustomerExistsExc(STR."Customer with e-mail : \{customer.getEmail()}already exists!!");
+            throw new CustomerExistsExc("Customer with e-mail : " + customer.getEmail() + " already exists!!");
         }
         return Customerrepository.updateCustomer(customer).orElseThrow(()->new CustomerNotFoundExc("customer is not updated!!"));
         //return customer;
@@ -60,7 +60,7 @@ public class CustomerServieceImp implements CustomerService{
     public void deletecustomer(int id) {
         boolean deleted=Customerrepository.deletebyid(id);
         if (!deleted){
-            throw new CustomerNotFoundExc(STR."customer not found with id \{id}");
+            throw new CustomerNotFoundExc("customer not found with id " + id);
         }
 
     }

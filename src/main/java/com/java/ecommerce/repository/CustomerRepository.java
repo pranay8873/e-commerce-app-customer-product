@@ -13,10 +13,10 @@ public class CustomerRepository {
 
  public final List<Customer> customers=customercsv.getcustomersfromcsv();
 
-    public CustomerRepository() throws IOException {
+    public CustomerRepository(List<Customer> customerList) throws IOException {
     }
 
-    public void save(Customer customer){
+    public void addcustomer(Customer customer){
         customers.add(customer);
     }
 
