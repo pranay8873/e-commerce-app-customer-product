@@ -11,7 +11,7 @@ import java.util.List;
 public class CustomerServieceImp implements CustomerService{
     public final CustomerRepository Customerrepository;
 
-    public CustomerServieceImp(List<Customer> customerrepo) throws IOException {
+    public CustomerServieceImp(CustomerRepository customerrepo) throws IOException {
         this.Customerrepository=customerrepo;
     }
 
@@ -42,8 +42,11 @@ public class CustomerServieceImp implements CustomerService{
     }
 
     @Override
-    public void save(Customer customer) {
-        Customerrepository.addcustomer(customer);
+    public Customer save(Customer customer) {
+        if (Customerrepository.getCustomerbyid(customer.getId()).isPresent()){
+            throw new CustomerExistsExc("customer with id : "+customer.getId()+" already exists!!");
+        }
+        return Customerrepository.addcustomer(customer);
     }
 
     @Override

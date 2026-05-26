@@ -13,10 +13,10 @@ public class CustomerMainMet {
 
     public CustomerMainMet() throws Exception {
 
-            CustomerRepository repository = new CustomerRepository(customerList);
-            CustomerServieceImp Serviece = new CustomerServieceImp(repository);
+            CustomerRepository repository = new CustomerRepository();
+            CustomerServieceImp Service = new CustomerServieceImp(repository);
 
-            CustomerControler cusctlr = new CustomerControler(Serviece);
+            CustomerControler cusctlr = new CustomerControler(Service);
             int choice;
             Scanner sc = new Scanner(System.in);
             System.out.println("""

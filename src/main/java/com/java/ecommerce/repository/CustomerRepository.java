@@ -10,19 +10,23 @@ import java.util.Optional;
 
 public class CustomerRepository {
  public final Customercsv customercsv = new Customercsv();
+public  List<Customer> customers=customercsv.getcustomersfromcsv();
 
- public final List<Customer> customers=customercsv.getcustomersfromcsv();
 
-    public CustomerRepository(List<Customer> customerList) throws IOException {
+    public CustomerRepository() throws IOException {
+    }
+    public CustomerRepository(List<Customer> customers) throws IOException {
+        this.customers=customers;
     }
 
-    public void addcustomer(Customer customer){
+    public Customer addcustomer(Customer customer){
         customers.add(customer);
+        return customer;
     }
 
 
     public List<Customer> getCustomers() throws IOException {
-        return customercsv.getcustomersfromcsv();
+        return customers;
     }
 
 

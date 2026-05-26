@@ -13,7 +13,7 @@ public interface CustomerService {
       Customer getcustomerbyid(int id);
       Customer getbyemail(String email);
       List<Customer> getallcustomers() throws IOException;
-      void save(Customer customer);
+      Customer save(Customer customer);
       //UPDATE
       Customer updatecustomer(Customer customer);
       // DELETE

@@ -1,5 +1,6 @@
 package com.java.ecommerce;
 
+import com.java.ecommerce.Exceptions.CustomerExistsExc;
 import com.java.ecommerce.model.Customer;
 import com.java.ecommerce.repository.CustomerRepository;
 import com.java.ecommerce.service.CustomerServieceImp;
@@ -10,24 +11,47 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class CustomerTest {
-    private CustomerRepository cusrep;
+    private CustomerServieceImp cussev;
     private List<Customer> customerList;
+
     @BeforeEach
     public void setup() throws IOException {
-        customerList= new ArrayList<>(List.of(Customer.builder().id(1).age(20).email("pranay[uvvati@gmail.com").gender("male").phoneno(8919836703L).password("pranay@123").build(),
+        customerList = new ArrayList<>(List.of(Customer.builder().name("pranay").id(1).age(20).email("pranaypuvvati@gmail.com").gender("male").phoneno(8919836703L).password("pranay@123").build(),
                 Customer.builder().name("vaishnavi").id(2).email("vaishnavichepri@gmail.com").phoneno(89387484889L).gender("female").password("vaishnavi@123").build()));
-        cusrep = new CustomerRepository(customerList);
+        CustomerRepository cusrep=new CustomerRepository(customerList);
+        cussev = new CustomerServieceImp(cusrep);
     }
     @Test
     @DisplayName("Save Customer When Details Are Valid")
-    void shouldaddchuoldwhendataisvalid() throws IOException {
-        Customer cust=new Customer("samuel","male",3,25,"samuelsam@gmail.com","samuelsam123",829383938393L);
-        Customer addedcustomer=cusrep.addcustomer(cust);
-        assertEquals("Samuel",addedcustomer.getName(),"customer name should be samuel");
-        assertEquals(3,cusrep.getCustomers().size(),"size should be 3");
+    void shouldaddcustomerwhendataisvalid() throws IOException {
+        Customer cust=new Customer("samuel","male",3,25,"samuelsam@gmail.com","samuelsam123",8293838393L);
+        Customer addedcustomer=cussev.save(cust);
+        assertEquals("samuel",addedcustomer.getName(),"customer name should be samuel");
+        assertEquals(3,cussev.getallcustomers().size(),"size should be 3");
     }
+     @Test
+     @DisplayName("Should throw exception when adding customer with duplicate ID")
+     void shouldThrowExceptionWhenAddingDuplicateCustomer() throws IOException {
+         Customer duplicate = new Customer("pranay","male",1,20,"pranaypuvaati@gmail.com","pranay@123",8919836703L);
+
+         assertThrows(CustomerExistsExc.class,
+         ()->cussev.save(duplicate),"customer with duplicate ID should not be added");
+
+         assertEquals(2, cussev.getallcustomers().size(),"customer list should have 2 customers");
+     }
+     @Test
+    @DisplayName("Should return customer when valid datils are provided")
+    void shouldreturncustomerwhenidisvalid(){
+        Customer addedcus=cussev.getcustomerbyid(1);
+        assertNotNull(addedcus,"customer should not be null");
+        assertEquals("pranay",addedcus.getName());
+     }
+
+
 
 
 }
