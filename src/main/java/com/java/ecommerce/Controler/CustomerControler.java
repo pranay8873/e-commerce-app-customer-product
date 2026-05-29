@@ -3,13 +3,18 @@ package com.java.ecommerce.Controler;
 import com.java.ecommerce.Exceptions.CustomerNotFoundExc;
 import com.java.ecommerce.model.Customer;
 import com.java.ecommerce.service.CustomerServieceImp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.util.List;
 
+@Controller
 public class CustomerControler {
     CustomerServieceImp custser;
+    @Autowired
     public CustomerControler(CustomerServieceImp customerserviece){
+
         this.custser=customerserviece;
     }
     public Customer getCustomerByID(int id) throws CustomerNotFoundExc{

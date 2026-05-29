@@ -2,12 +2,15 @@ package com.java.ecommerce.repository;
 
 import com.java.ecommerce.Resources.Customercsv;
 import com.java.ecommerce.model.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Repository
 public class CustomerRepository {
  public final Customercsv customercsv = new Customercsv();
 public  List<Customer> customers=customercsv.getcustomersfromcsv();
@@ -15,6 +18,7 @@ public  List<Customer> customers=customercsv.getcustomersfromcsv();
 
     public CustomerRepository() throws IOException {
     }
+    @Autowired
     public CustomerRepository(List<Customer> customers) throws IOException {
         this.customers=customers;
     }
