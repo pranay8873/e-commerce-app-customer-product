@@ -1,4 +1,4 @@
-package com.java.ecommerce.service;
+package com.java.ecommerce.problems;
 
 
     class Solution {
